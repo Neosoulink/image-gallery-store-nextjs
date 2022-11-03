@@ -8,9 +8,11 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "firebase": "^9.13.0",
     "next": "latest",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-firebase-hooks": "^5.0.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",
