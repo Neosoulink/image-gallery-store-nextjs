@@ -83,7 +83,13 @@ const Profile: NextPage<Props> = ({}) => {
 			/>
 			<div className="w-screen h-screen overflow-hidden flex">
 				<div className="w-96 bg-slate-200 shadow-2xl flex flex-col py-16 px-5">
-					<div className="h-40 w-40 rounded-full bg-white overflow-hidden mb-5" />
+					<div
+						className="h-40 w-40 rounded-full bg-white overflow-hidden mb-5 bg-contain bg-no-repeat bg-center"
+						style={{
+							backgroundImage:
+								"url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqFCpRqRXjxV_7FnE8tv-8zD5oVAG8Mmz2wQ&usqp=CAU)",
+						}}
+					/>
 
 					{loadingUserData ? (
 						<div>Loading user info...</div>
@@ -106,7 +112,7 @@ const Profile: NextPage<Props> = ({}) => {
 										</div>
 										<div className="flex flex-col items-center flex-1 border-r-2">
 											<span className=" font-semibold">Likes</span>
-											<span>2</span>
+											<span>0</span>
 										</div>
 									</div>{" "}
 								</>
