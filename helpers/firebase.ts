@@ -28,6 +28,7 @@ import {
 	updateDoc,
 	DocumentReference,
 	addDoc,
+	orderBy,
 } from "firebase/firestore";
 import {
 	getStorage,
@@ -75,6 +76,7 @@ export interface editUserDataFormType {
 }
 
 export interface NewUserDataInterface {
+	id?: string;
 	name: string;
 	email: string;
 	phoneNumber: string;
@@ -261,6 +263,7 @@ class FirebaseHelper {
 				const _USER_DOC_REF = doc(this.db, "users", _USER_CREDENTIALS.user.uid);
 
 				const _NEW_USER_DATA: NewUserDataInterface = {
+					id: _USER_CREDENTIALS.user.uid,
 					email: form.email,
 					name: form.username,
 					photoURL: _USER_CREDENTIALS.user.photoURL || "",
@@ -637,6 +640,35 @@ class FirebaseHelper {
 			console.warn("🚧 FirebaseHelper->addUserIncomeSourceIcon->catch", err);
 		}
 		return null;
+	}
+
+	async getStoredUserPhotoGallery(
+		uid: string
+	): Promise<NewStoredUserPhotoGalleryInterface[]> {
+		try {
+			const USER_REF = doc(this.db, "users", uid);
+			const QUERY = query(
+				collection(this.db, "users_photo_gallery"),
+				where("user", "==", USER_REF),
+				orderBy("createdAt", "desc")
+			);
+			const _ITEMS: NewStoredUserPhotoGalleryInterface[] = [];
+			const _DATA = await getDocs(QUERY);
+
+			if (!_DATA.empty) {
+				_DATA.docs.forEach((_doc) =>
+					_ITEMS.push({
+						...(_doc.data() as NewStoredUserPhotoGalleryInterface),
+						id: _doc.id,
+					})
+				);
+			}
+			return _ITEMS;
+		} catch (err) {
+			console.warn("🚧 FirebaseHelper->getStoredUserPhotoGallery->catch", err);
+		}
+
+		return [];
 	}
 
 	/**
