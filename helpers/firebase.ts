@@ -26,6 +26,8 @@ import {
 	Timestamp,
 	deleteDoc,
 	updateDoc,
+	DocumentReference,
+	addDoc,
 } from "firebase/firestore";
 import {
 	getStorage,
@@ -85,6 +87,22 @@ export interface NewUserDataInterface {
 
 export interface editUserDataResInterface
 	extends ModifyPropertiesTypes<editUserDataFormType, { photoURL: string }> {}
+
+export interface StoreUserPhotoGalleryFormInterface {
+	img: File;
+	title: string;
+	description?: string;
+}
+
+export interface NewStoredUserPhotoGalleryInterface {
+	id: string | null;
+	img: string;
+	user: DocumentReference;
+	title: string;
+	description: string | null;
+	createdAt: Timestamp;
+	updatedAt: Timestamp;
+}
 
 // LOCAL FORMS VALIDATION CONSTRAINTS
 export const _EDIT_USER_DATA_VALIDATION_CONSTRAINT: {
@@ -572,6 +590,53 @@ class FirebaseHelper {
 			console.warn("🚧 FirebaseHelper->resetUserPass->catch", err);
 			return false;
 		}
+	}
+
+	async storeUserPhotoGallery(
+		form: StoreUserPhotoGalleryFormInterface
+	): Promise<ModifyPropertiesTypes<
+		NewStoredUserPhotoGalleryInterface,
+		{ user: string }
+	> | null> {
+		try {
+			const _CURRENT_USER = this.auth.currentUser as User;
+			const _USER_DOC_REF = doc(this.db, "users", _CURRENT_USER.uid);
+			const IMG_NAME =
+				Timestamp.now().nanoseconds.toString() + _CURRENT_USER.uid ?? "";
+
+			const NEW_INCOME_SOURCE_ICON = await this.uploadPhotoAsync(
+				URL.createObjectURL(form.img),
+				"images/users_photo_gallery/" + IMG_NAME
+			);
+
+			const _DATA_TO_RETURN: NewStoredUserPhotoGalleryInterface = {
+				user: _USER_DOC_REF,
+				title: form.title,
+				description: form.description ?? null,
+				img: NEW_INCOME_SOURCE_ICON,
+				id: null,
+				createdAt: Timestamp.now(),
+				updatedAt: Timestamp.now(),
+			};
+
+			const _DOC_REF = await addDoc(
+				collection(this.db, "users_photo_gallery"),
+				_DATA_TO_RETURN
+			);
+
+			console.log({
+				type: "success",
+				icon: "success",
+				message: "Income source icon added!",
+			});
+
+			_DATA_TO_RETURN.id = _DOC_REF.id;
+
+			return { ..._DATA_TO_RETURN, user: _CURRENT_USER.uid };
+		} catch (err) {
+			console.warn("🚧 FirebaseHelper->addUserIncomeSourceIcon->catch", err);
+		}
+		return null;
 	}
 
 	/**

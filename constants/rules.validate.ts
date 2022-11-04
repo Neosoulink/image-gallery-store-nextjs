@@ -1,19 +1,4 @@
 // This file contain rule validation constants for validate.js
-import { validators, extend } from 'validate.js';
-
-// HELPERS
-import { formatWithTz } from '../helpers/utils';
-
-extend(validators.datetime, {
-	parse: function (_value: any, _options: any) {
-		return new Date(_value);
-	},
-	format: function (_value: any, _options: any) {
-		const FORMAT = _options.dateOnly ? 'yyyy-MM-dd' : 'yyyy-MM-dd HH:mm:ss';
-		return formatWithTz(_value, FORMAT);
-	},
-});
-
 // TODO: #2 Set types for validation rule constants
 
 /**
