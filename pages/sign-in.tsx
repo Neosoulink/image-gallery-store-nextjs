@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { NextPage } from "next";
 
 // TYPES
 import type { SignInFormFieldsNameType } from "../helpers/firebase";
@@ -29,7 +30,7 @@ export type FormErrorsType =
 	  }
 	| { [name: string]: string[] | undefined };
 
-function SignUp({}: Props) {
+const SignIn: NextPage<Props> = ({}) => {
 	// STATES
 	const [form, setForm] = React.useState<FormType>({
 		email: "",
@@ -170,6 +171,6 @@ function SignUp({}: Props) {
 			</main>
 		</div>
 	);
-}
+};
 
-export default SignUp;
+export default SignIn;
