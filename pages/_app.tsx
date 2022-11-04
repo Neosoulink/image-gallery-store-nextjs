@@ -1,19 +1,69 @@
+import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { onAuthStateChanged } from "firebase/auth";
 
 // HELPER
-import FirebaseHelper from "../helpers/firebase";
+import firebase, { NewUserDataInterface } from "../helpers/firebase";
 
 // STYLES
 import "../styles/main.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-	useEffect(() => {
-		FirebaseHelper.init();
+	// ROUTER
+	const ROUTER = useRouter();
 
-		return () => {};
-	}, []);
+	// EFFECTS
+	useEffect(() => {
+		firebase.init();
+
+		const onAuthStateChangedUnsubscribe = onAuthStateChanged(
+			firebase.auth,
+			async (_USER_AUTH) => {
+				console.log("state changed", _USER_AUTH, ROUTER);
+
+				if (_USER_AUTH) {
+					const USER_DATA = (await firebase.getUserData(
+						_USER_AUTH.uid
+					)) as NewUserDataInterface;
+					console.log(ROUTER);
+
+					if (USER_DATA) {
+						// ? If using redux, set user store with these data
+						// data: {
+						//   name: USER_DATA.name,
+						//   email: USER_DATA.email,
+						//   deleted: USER_DATA.deleted,
+						//   photoURL: USER_DATA.photoURL,
+						//   phoneNumber: USER_DATA.phoneNumber,
+						//   signUpMethod: USER_DATA.signUpMethod,
+						//   uid: _USER_AUTH.uid,
+						//   emailVerified: _USER_AUTH.emailVerified,
+						//   isAnonymous: _USER_AUTH.isAnonymous,
+						//   createdAt: USER_DATA.createdAt.toDate(),
+						//   updatedAt: USER_DATA.updatedAt.toDate(),
+						// }
+
+						if (["/sign-in", "/sign-up"].includes(ROUTER.asPath)) {
+							ROUTER.replace("/profile");
+						}
+						return;
+					}
+
+					return await firebase.signOut();
+				} else {
+					if (["/profile"].includes(ROUTER.asPath)) {
+						ROUTER.replace("/sign-in");
+					}
+				}
+			}
+		);
+
+		return () => {
+			onAuthStateChangedUnsubscribe();
+		};
+	}, [ROUTER.asPath]);
 
 	return (
 		<>

@@ -150,7 +150,7 @@ const SignIn: NextPage<Props> = ({}) => {
 						className="block w-full px-3 py-2 border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white font-semibold text-center my-5 disabled:bg-indigo-500 disabled:text-white disabled:placeholder-opacity-50"
 					>
 						{submitFormLoading ? (
-							"Registration processing..."
+							"Please wait..."
 						) : (
 							<>Let me in!!! &rarr;</>
 						)}

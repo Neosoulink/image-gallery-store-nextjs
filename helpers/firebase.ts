@@ -365,6 +365,30 @@ class FirebaseHelper {
 		return null;
 	}
 
+	/**
+	 * Get user goal document with the user uid
+	 *
+	 * @param uid
+	 */
+	async getUserDataByEmail(email: string): Promise<DocumentData | null> {
+		try {
+			const QUERY = query(
+				collection(this.db, "users"),
+				where("email", "==", email)
+			);
+
+			const DATA = await getDocs(QUERY);
+
+			if (!DATA.empty) {
+				return DATA.docs[0];
+			}
+		} catch (err) {
+			console.warn("🚧 FirebaseHelper->getUser->catch", err);
+		}
+
+		return null;
+	}
+
 	/**  */
 	async editUserData(
 		_form: editUserDataFormType
