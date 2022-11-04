@@ -8,6 +8,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@toast-ui/react-image-editor": "^3.15.2",
     "firebase": "^9.13.0",
     "next": "latest",
     "react": "^18.1.0",
