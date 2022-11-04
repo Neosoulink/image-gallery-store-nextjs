@@ -1,65 +1,94 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
-import styles from '@/pages/index.module.css'
+import Head from "next/head";
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+	return (
+		<div className="h-screen w-screen overflow-hidden flex flex-col">
+			<Head>
+				<title>IG-Store - Home</title>
+			</Head>
 
-      <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+			<main className="flex flex-col flex-1 items-center w-full pt-20 pb-5 overflow-y-auto">
+				<h1 className="font-bold text-6xl mb-4">
+					Welcome to <span className="text-indigo-500">Stored</span>
+				</h1>
 
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
+				<p className="mb-8">
+					Share your best moment with the world! We take care{" "}
+					<span className="text-indigo-500">to store them for you ;)</span>
+				</p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+				<form className="w-2/6">
+					<h2 className="text-xl font-semibold mb-5 text-indigo-500">
+						Sign Up
+					</h2>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+					<label className="block ">
+						<span className="block text-sm font-medium text-slate-700">
+							Your name 😉
+						</span>
+						<input
+							type="email"
+							className="peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+						/>
+						<p className="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+							Please provide a valid email address.
+						</p>
+					</label>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+					<label className="block ">
+						<span className="block text-sm font-medium text-slate-700">
+							Your email 😁
+						</span>
+						<input
+							type="email"
+							className="peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+						/>
+						<p className="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+							Please provide a valid email address.
+						</p>
+					</label>
 
-          <a href="https://vercel.com/new" className={styles.card}>
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+					<label className="block ">
+						<span className="block text-sm font-medium text-slate-700">
+							Your Password 😎
+						</span>
+						<input
+							type="email"
+							className="peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+						/>
+						<p className="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+							Please provide a valid email address.
+						</p>
+					</label>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  )
+					<label className="block ">
+						<span className="block text-sm font-medium text-slate-700">
+							Confirm your Password 🤯
+						</span>
+						<input
+							type="email"
+							className="peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+						/>
+						<p className="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+							Please provide a valid email address.
+						</p>
+					</label>
+
+					<button className="block w-full px-3 py-2 border border-indigo-500 rounded hover:bg-indigo-500  hover:text-white font-semibold text-center">
+						Let me in!!! &rarr;
+					</button>
+				</form>
+			</main>
+
+			<footer className="text-center py-4">
+				<a
+					href="https://github.com/Neosoulink"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					A funny project - 2022. Made with ❤
+				</a>
+			</footer>
+		</div>
+	);
 }
