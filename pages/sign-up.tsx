@@ -110,7 +110,7 @@ function SignUp({}: Props) {
 						<input
 							type="text"
 							autoComplete="username"
-							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none ${
+							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
 								formErrors.username ? "" : "invalid:"
 							}border-pink-500 ${
 								formErrors.username ? "" : "invalid:"
@@ -138,7 +138,8 @@ function SignUp({}: Props) {
 						</span>
 						<input
 							type="email"
-							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none ${
+							autoComplete="email"
+							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
 								formErrors.email ? "" : "invalid:"
 							}border-pink-500 ${
 								formErrors.email ? "" : "invalid:"
@@ -165,7 +166,7 @@ function SignUp({}: Props) {
 						<input
 							type="password"
 							autoComplete="new-password"
-							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none ${
+							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
 								formErrors.password ? "" : "invalid:"
 							}border-pink-500 ${
 								formErrors.password ? "" : "invalid:"
@@ -192,7 +193,7 @@ function SignUp({}: Props) {
 						<input
 							type="password"
 							autoComplete="new-password"
-							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none ${
+							className={`peer mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
 								formErrors.confirmPassword ? "" : "invalid:"
 							}border-pink-500 ${
 								formErrors.confirmPassword ? "" : "invalid:"
