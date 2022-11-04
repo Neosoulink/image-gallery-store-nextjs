@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -13,6 +13,9 @@ import "../styles/main.css";
 export default function MyApp({ Component, pageProps }: AppProps) {
 	// ROUTER
 	const ROUTER = useRouter();
+
+	// STATES
+	const [loading, setLoading] = React.useState(true);
 
 	// EFFECTS
 	useEffect(() => {
@@ -48,15 +51,16 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 						if (["/sign-in", "/sign-up"].includes(ROUTER.asPath)) {
 							ROUTER.replace("/profile");
 						}
-						return;
+					} else {
+						await firebase.signOut();
 					}
-
-					return await firebase.signOut();
 				} else {
 					if (["/profile"].includes(ROUTER.asPath)) {
 						ROUTER.replace("/sign-in");
 					}
 				}
+
+				setLoading(false);
 			}
 		);
 
@@ -70,7 +74,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 			<Head>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Component {...pageProps} />
+			{loading ? (
+				<div className="w-screen h-screen flex justify-center items-center">
+					<h1 className="font-bold text-3xl">
+						loading...
+					</h1>
+				</div>
+			) : (
+				<Component {...pageProps} />
+			)}
 		</>
 	);
 }
