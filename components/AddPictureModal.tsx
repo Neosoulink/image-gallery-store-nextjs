@@ -126,13 +126,13 @@ function AddPictureModal({ visible, onDismiss, onCompleteAdd }: Props) {
 
 	return (
 		<div
-			className={`w-screen h-screen absolute overflow-hidden ${
+			className={`w-screen h-screen absolute overflow-hidden z-30 ${
 				visible ? "" : "hidden"
 			}`}
 		>
 			<div className="w-screen h-screen relative flex items-center justify-center overflow-hidden">
 				<button
-					className="absolute top-10 right-10 h-10 w-10 bg-white shadow-lg rounded-full z-10 hover:bg-slate-50"
+					className="absolute top-10 right-10 h-10 w-10 bg-white shadow-lg rounded-full z-50 hover:bg-slate-50"
 					onClick={onDismiss}
 				>
 					&#x2716;
@@ -143,7 +143,7 @@ function AddPictureModal({ visible, onDismiss, onCompleteAdd }: Props) {
 					onClick={onDismiss}
 				/>
 
-				<div className="max-h-screen w-7/12 py-10 z-10 flex">
+				<div className="max-h-screen w-7/12 py-10 z-50 flex">
 					<form
 						className="w-full p-10 bg-white rounded-md shadow-2xl overflow-y-auto"
 						onSubmit={handleFormSubmit}

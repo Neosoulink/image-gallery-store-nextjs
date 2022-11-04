@@ -118,7 +118,23 @@ const Profile: NextPage<Props> = ({}) => {
 					)}
 				</div>
 
-				<div></div>
+				<div className="p-5 grid grid-cols-3 gap-4 flex-1 overflow-y-auto">
+					{Array.from(Array(30).keys()).map(() => (
+						<div className="group relative shadow hover:shadow-xl col-auto h-56 flex items-end rounded overflow-hidden">
+							<img src="" className="absolute h-full w-full" />
+
+							<div className=" bg-gradient-to-t from-black opacity-0 group-hover:opacity-20 absolute h-full w-full" />
+
+							<div className="relative opacity-0 group-hover:opacity-100 text-white p-3">
+								<h2 className="font-semibold text-base">Title</h2>
+
+								<desc className="font-semibold text-sm">
+									Moment description
+								</desc>
+							</div>
+						</div>
+					))}
+				</div>
 			</div>
 		</>
 	);
