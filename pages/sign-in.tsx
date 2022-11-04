@@ -86,7 +86,7 @@ function SignUp({}: Props) {
 					<div className="mb-8">
 						<h2 className="text-4xl font-bold text-indigo-500 mb-2">Sign In</h2>
 						<p className="">
-							Welcome back, we're very happy to see you back ;)
+							Welcome back, we're very happy to see you here ;)
 						</p>
 					</div>
 
