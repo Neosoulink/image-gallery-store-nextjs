@@ -582,7 +582,7 @@ class FirebaseHelper {
 		try {
 			await sendPasswordResetEmail(this.auth, email);
 
-			console.warn({
+			console.log({
 				type: "info",
 				message:
 					"We've sent you an email to reset your password. Please verify your mail box",
