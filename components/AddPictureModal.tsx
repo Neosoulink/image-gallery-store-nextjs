@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import "tui-image-editor/dist/tui-image-editor.css";
+// import "tui-image-editor/dist/tui-image-editor.css";
 // @ts-ignore
-import ImageEditor from "@toast-ui/react-image-editor";
+// import ImageEditor from "@toast-ui/react-image-editor";
 import { validate } from "validate.js";
 
 // TYPES
@@ -267,7 +267,7 @@ function AddPictureModal({ visible, onDismiss, onCompleteAdd }: Props) {
 					</form>
 				</div>
 
-				{false && (
+				{/* {false && (
 					<ImageEditor
 						includeUI={{
 							loadImage: {
@@ -291,7 +291,7 @@ function AddPictureModal({ visible, onDismiss, onCompleteAdd }: Props) {
 						}}
 						usageStatistics={true}
 					/>
-				)}
+				)} */}
 			</div>
 		</div>
 	);

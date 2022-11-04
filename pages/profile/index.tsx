@@ -3,7 +3,10 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 // HELPERS
-import firebase, { NewUserDataInterface } from "helpers/firebase";
+import firebase, {
+	NewStoredUserPhotoGalleryInterface,
+	NewUserDataInterface,
+} from "helpers/firebase";
 import { isEmpty } from "helpers/utils";
 
 // COMPONENTS
@@ -14,8 +17,8 @@ export interface Props {}
 
 const Profile: NextPage<Props> = ({}) => {
 	// ROUTER
-	const router = useRouter();
-	const { user } = router.query;
+	const ROUTER = useRouter();
+	const { user } = ROUTER.query;
 
 	// STATES
 	const [userData, setUserData] = React.useState<
@@ -25,12 +28,16 @@ const Profile: NextPage<Props> = ({}) => {
 	const [owner, setOwner] = React.useState(false);
 	const [showAddPhotoGalleryModal, setShowAddPhotoGalleryModal] =
 		React.useState(false);
+	const [userImgList, setUserImgList] = React.useState<
+		NewStoredUserPhotoGalleryInterface[]
+	>([]);
 
 	// EFFECTS
 	React.useEffect(() => {
 		(async () => {
 			setLoadingUserData(true);
 			const CURRENT_FIRE_USER = firebase.auth.currentUser;
+
 			const USER_EMAIL =
 				typeof user === "string" && !isEmpty(user)
 					? user
@@ -40,11 +47,19 @@ const Profile: NextPage<Props> = ({}) => {
 				const GET_USER_DATA = await firebase.getUserDataByEmail(USER_EMAIL);
 
 				if (GET_USER_DATA && GET_USER_DATA.data()) {
+					console.log("USER_PHOTOS ===>", GET_USER_DATA.data(), ROUTER.query);
 					setUserData(GET_USER_DATA.data());
+
 					setOwner(
 						!!CURRENT_FIRE_USER &&
 							GET_USER_DATA.data()?.email === CURRENT_FIRE_USER.email
 					);
+
+					const USER_PHOTOS = await firebase.getStoredUserPhotoGallery(
+						GET_USER_DATA.data()?.id
+					);
+
+					setUserImgList(USER_PHOTOS);
 				}
 			}
 
@@ -59,6 +74,12 @@ const Profile: NextPage<Props> = ({}) => {
 			<AddPictureModal
 				visible={showAddPhotoGalleryModal}
 				onDismiss={() => setShowAddPhotoGalleryModal(false)}
+				onCompleteAdd={(newEntry) =>
+					setUserImgList([
+						newEntry as unknown as NewStoredUserPhotoGalleryInterface,
+						...userImgList,
+					])
+				}
 			/>
 			<div className="w-screen h-screen overflow-hidden flex">
 				<div className="w-96 bg-slate-200 shadow-2xl flex flex-col py-16 px-5">
@@ -81,7 +102,7 @@ const Profile: NextPage<Props> = ({}) => {
 									<div className="flex flex-row my-10">
 										<div className="flex flex-col items-center flex-1 border-r-2 border-r-dark-40">
 											<span className=" font-semibold">Photos</span>
-											<span>30</span>
+											<span>{userImgList.length}</span>
 										</div>
 										<div className="flex flex-col items-center flex-1 border-r-2">
 											<span className=" font-semibold">Likes</span>
@@ -118,23 +139,62 @@ const Profile: NextPage<Props> = ({}) => {
 					)}
 				</div>
 
-				<div className="p-5 grid grid-cols-3 gap-4 flex-1 overflow-y-auto">
-					{Array.from(Array(30).keys()).map(() => (
-						<div className="group relative shadow hover:shadow-xl col-auto h-56 flex items-end rounded overflow-hidden">
-							<img src="" className="absolute h-full w-full" />
+				{!loadingUserData && (
+					<>
+						{userImgList.length ? (
+							<div className="p-5 flex-1 overflow-y-auto">
+								<div className="grid grid-cols-3 gap-4">
+									{userImgList.map((item, index) => (
+										<div
+											key={index}
+											className="group relative shadow hover:shadow-xl col-auto h-56 flex items-end rounded overflow-hidden bg-white"
+										>
+											<div
+												style={{ backgroundImage: `url(${item.img})` }}
+												className="absolute h-full w-full bg-cover bg-center"
+											/>
 
-							<div className=" bg-gradient-to-t from-black opacity-0 group-hover:opacity-20 absolute h-full w-full" />
+											<a
+												href={item.img}
+												target="_blank"
+												className=" bg-gradient-to-t from-black opacity-0 group-hover:opacity-30 absolute h-full w-full"
+											/>
 
-							<div className="relative opacity-0 group-hover:opacity-100 text-white p-3">
-								<h2 className="font-semibold text-base">Title</h2>
+											{owner && (
+												<div className="absolute top-3 right-3  flex-col items-end hidden group-hover:flex z-10">
+													<button className=" bg-indigo-500 text-white text-small py-1 px-2 mb-1 rounded">
+														Edit
+													</button>
+													<button className=" bg-danger text-white text-small py-1 px-2 rounded">
+														Delete
+													</button>
+												</div>
+											)}
 
-								<desc className="font-semibold text-sm">
-									Moment description
-								</desc>
+											<a
+												href={item.img}
+												target="_blank"
+												className="relative opacity-0 group-hover:opacity-100 text-white p-3"
+											>
+												<h2 className="font-semibold text-base text">
+													{item.title}
+												</h2>
+
+												<span className="font-semibold text-sm">
+													{item.description ?? ""}
+												</span>
+											</a>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					))}
-				</div>
+						) : (
+							<div className="flex-1 flex items-center justify-center">
+								<h2 className="font-bold text-3xl">No picture found 😫</h2>
+							</div>
+						)}
+					</>
+				)}
 			</div>
 		</>
 	);
