@@ -83,7 +83,10 @@ const SignIn: NextPage<Props> = ({}) => {
 			</Head>
 
 			<main className=" overflow-y-auto flex flex-col items-center pt-20 pb-5">
-				<form className="w-2/6" onSubmit={handleFormSubmit}>
+				<form
+					className="w-full px-5 sm:w-5/6 md:w-3/6 lg:w-6/12 xl:w-2/6"
+					onSubmit={handleFormSubmit}
+				>
 					<div className="mb-8">
 						<h2 className="text-4xl font-bold text-indigo-500 mb-2">Sign In</h2>
 						<p className="">
@@ -149,11 +152,7 @@ const SignIn: NextPage<Props> = ({}) => {
 						disabled={submitFormLoading}
 						className="block w-full px-3 py-2 border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white font-semibold text-center my-5 disabled:bg-indigo-500 disabled:text-white disabled:placeholder-opacity-50"
 					>
-						{submitFormLoading ? (
-							"Please wait..."
-						) : (
-							<>Let me in!!! &rarr;</>
-						)}
+						{submitFormLoading ? "Please wait..." : <>Let me in!!! &rarr;</>}
 					</button>
 
 					<div className="text-center">

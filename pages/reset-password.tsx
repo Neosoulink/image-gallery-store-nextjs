@@ -75,7 +75,10 @@ const ResetPassword: NextPage<Props> = ({}) => {
 			</Head>
 
 			<main className=" overflow-y-auto flex flex-col items-center pt-20 pb-5">
-				<form className="w-2/6" onSubmit={handleFormSubmit}>
+				<form
+					className="w-full px-5 sm:w-5/6 md:w-3/6 lg:w-6/12 xl:w-2/6"
+					onSubmit={handleFormSubmit}
+				>
 					<div className="mb-8">
 						<h2 className="text-4xl font-bold text-indigo-500 mb-2">
 							Reset Password
