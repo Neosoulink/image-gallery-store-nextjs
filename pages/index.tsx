@@ -1,65 +1,49 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
-import styles from '@/pages/index.module.css'
+import Head from "next/head";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+	return (
+		<div className="h-screen w-screen overflow-hidden flex flex-col">
+			<Head>
+				<title>IG-Store - Home</title>
+			</Head>
 
-      <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+			<main className="flex flex-col flex-1 justify-center items-center w-full pt-20 pb-5 overflow-y-auto">
+				<h1 className="font-bold text-6xl mb-4">
+					Welcome to <span className="text-indigo-500">Stored</span>
+				</h1>
 
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
+				<p className="mb-8">
+					Share your best moment with the world! We take care{" "}
+					<span className="text-indigo-500">to store them for you ;)</span>
+				</p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+				<div className="flex flex-row w-full justify-center items-center">
+					<Link
+						href="sign-up"
+						className="block px-3 py-2 border border-indigo-500 rounded bg-indigo-500 text-white font-semibold text-center mr-2"
+					>
+						Get Onboard 🚀
+					</Link>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+					<Link
+						href="sign-in"
+						className="block px-3 py-2 border border-indigo-500 rounded hover:bg-indigo-500 hover:text-white font-semibold text-center"
+					>
+						Already have an account 😎
+					</Link>
+				</div>
+			</main>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a href="https://vercel.com/new" className={styles.card}>
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  )
+			<footer className="text-center py-4">
+				<a
+					href="https://github.com/Neosoulink"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					A funny project - 2022. Made with ❤
+				</a>
+			</footer>
+		</div>
+	);
 }

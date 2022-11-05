@@ -1,0 +1,27 @@
+@import url("./globals.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+html,
+body {
+  @apply scroll-smooth m-0 p-0 text-dark-60 text-base font-normal;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+@layer components {
+  a {
+    @apply no-underline text-inherit;
+  }
+
+  input,
+  textarea {
+    @apply focus:outline-none bg-transparent;
+  }
+}
