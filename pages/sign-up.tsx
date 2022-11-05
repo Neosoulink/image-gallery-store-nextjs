@@ -30,7 +30,7 @@ export type FormErrorsType =
 	  }
 	| { [name: string]: string[] | undefined };
 
-	const SignUp: NextPage<Props> = ({}) => {
+const SignUp: NextPage<Props> = ({}) => {
 	// STATES
 	const [form, setForm] = React.useState<FormType>({
 		username: "",
@@ -97,8 +97,11 @@ export type FormErrorsType =
 				<title>IG-Store - Sign Up</title>
 			</Head>
 
-			<main className=" overflow-y-auto flex flex-col items-center pt-20 pb-5">
-				<form className="w-2/6" onSubmit={handleFormSubmit}>
+			<main className="overflow-y-auto flex flex-col items-center pt-20 pb-5">
+				<form
+					className="w-full px-5 sm:w-5/6 md:w-3/6 lg:w-6/12 xl:w-2/6"
+					onSubmit={handleFormSubmit}
+				>
 					<div className="mb-8">
 						<h2 className="text-4xl font-bold text-indigo-500 mb-2">Sign Up</h2>
 						<p className="">It's a real pleasure to have you here :)</p>
@@ -239,6 +242,6 @@ export type FormErrorsType =
 			</main>
 		</div>
 	);
-}
+};
 
 export default SignUp;
