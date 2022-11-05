@@ -81,65 +81,68 @@ const Profile: NextPage<Props> = ({}) => {
 					])
 				}
 			/>
-			<div className="w-screen h-screen overflow-hidden flex">
-				<div className="w-96 bg-slate-200 shadow-2xl flex flex-col py-16 px-5">
-					<div
-						className="h-40 w-40 rounded-full bg-white overflow-hidden mb-5 bg-contain bg-no-repeat bg-center"
-						style={{
-							backgroundImage:
-								"url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqFCpRqRXjxV_7FnE8tv-8zD5oVAG8Mmz2wQ&usqp=CAU)",
-						}}
-					/>
-
+			<div className="w-screen h-screen overflow-hidden flex flex-col md:flex-row">
+				<div className="w-full md:w-96 bg-slate-200 shadow-2xl flex flex-col py-5 md:py-16 px-5">
 					{loadingUserData ? (
 						<div>Loading user info...</div>
 					) : (
 						<>
 							{userData ? (
-								<>
-									<div className="">
-										<h2 className="text-dark-40 font-semibold text-2xl mb-2">
+								<div className="flex flex-row md:flex-col">
+									<div className="md:mb-10 flex-1 md:flex-initial pr-3">
+										<div
+											className="h-24 w-24 md:h-40 md:w-40 rounded-full bg-white overflow-hidden mb-5 bg-contain bg-no-repeat bg-center"
+											style={{
+												backgroundImage:
+													"url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqFCpRqRXjxV_7FnE8tv-8zD5oVAG8Mmz2wQ&usqp=CAU)",
+											}}
+										/>
+
+										<h2 className="text-dark-40 font-semibold text-xl md:text-2xl mb-2">
 											{userData.name}
 										</h2>
-										<h2 className="text-dark-40 font-semibold text-xl mb-2">
+										<h2 className="text-dark-40 font-semibold text-lg md:text-xl mb-2">
 											{userData.email}
 										</h2>
 									</div>
-									<div className="flex flex-row my-10">
-										<div className="flex flex-col items-center flex-1 border-r-2 border-r-dark-40">
-											<span className=" font-semibold">Photos</span>
-											<span>{userImgList.length}</span>
+
+									<div className="flex flex-col flex-1 md:flex-initial justify-center">
+										<div className="flex flex-row mb-5 md:mb-10">
+											<div className="flex flex-col items-center flex-1 border-r-2 border-r-dark-40">
+												<span className=" font-semibold">Photos</span>
+												<span>{userImgList.length}</span>
+											</div>
+											<div className="flex flex-col items-center flex-1 border-r-2">
+												<span className=" font-semibold">Likes</span>
+												<span>0</span>
+											</div>
 										</div>
-										<div className="flex flex-col items-center flex-1 border-r-2">
-											<span className=" font-semibold">Likes</span>
-											<span>0</span>
-										</div>
-									</div>{" "}
-								</>
+
+										{owner && (
+											<div className="w-full flex flex-col">
+												<button
+													className="border border-indigo-500 rounded p-2 hover:bg-indigo-500 hover:text-white mb-3"
+													onClick={() => setShowAddPhotoGalleryModal(true)}
+												>
+													Upload a moment 📷
+												</button>
+
+												<button
+													className="border border-danger rounded p-2 hover:bg-danger hover:text-white"
+													onClick={() => firebase.signOut()}
+												>
+													Log out 🚪
+												</button>
+											</div>
+										)}
+									</div>
+								</div>
 							) : (
 								<div className="">
 									<h2 className="text-dark-40 font-semibold text-2xl mb-2">
 										User not found 🤔
 									</h2>
 								</div>
-							)}
-
-							{owner && (
-								<>
-									<button
-										className="border border-indigo-500 rounded p-2 hover:bg-indigo-500 hover:text-white mb-3"
-										onClick={() => setShowAddPhotoGalleryModal(true)}
-									>
-										Upload a moment 📷
-									</button>
-
-									<button
-										className="border border-danger rounded p-2 hover:bg-danger hover:text-white"
-										onClick={() => firebase.signOut()}
-									>
-										Log out 🚪
-									</button>
-								</>
 							)}
 						</>
 					)}
@@ -149,7 +152,7 @@ const Profile: NextPage<Props> = ({}) => {
 					<>
 						{userImgList.length ? (
 							<div className="p-5 flex-1 overflow-y-auto">
-								<div className="grid grid-cols-3 gap-4">
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 									{userImgList.map((item, index) => (
 										<div
 											key={index}
