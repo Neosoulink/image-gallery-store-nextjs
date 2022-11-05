@@ -143,7 +143,7 @@ function AddPictureModal({ visible, onDismiss, onCompleteAdd }: Props) {
 					onClick={onDismiss}
 				/>
 
-				<div className="max-h-screen w-7/12 py-10 z-50 flex">
+				<div className="max-h-screen w-11/12 sm:w-10/12 md:w-7/12 py-10 z-50 flex">
 					<form
 						className="w-full p-10 bg-white rounded-md shadow-2xl overflow-y-auto"
 						onSubmit={handleFormSubmit}
