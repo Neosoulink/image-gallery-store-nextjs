@@ -24,13 +24,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 		const onAuthStateChangedUnsubscribe = onAuthStateChanged(
 			firebase.auth,
 			async (_USER_AUTH) => {
-				console.log("state changed", _USER_AUTH, ROUTER);
-
 				if (_USER_AUTH) {
 					const USER_DATA = (await firebase.getUserData(
 						_USER_AUTH.uid
 					)) as NewUserDataInterface;
-					console.log(ROUTER);
 
 					if (USER_DATA) {
 						// ? If using redux, set user store with these data
@@ -76,9 +73,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 			</Head>
 			{loading ? (
 				<div className="w-screen h-screen flex justify-center items-center">
-					<h1 className="font-bold text-3xl">
-						loading...
-					</h1>
+					<h1 className="font-bold text-3xl">loading...</h1>
 				</div>
 			) : (
 				<Component {...pageProps} />
