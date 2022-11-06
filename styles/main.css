@@ -10,7 +10,7 @@
 
 html,
 body {
-  @apply scroll-smooth m-0 p-0 text-dark-60 text-base font-normal;
+  @apply scroll-smooth m-0 p-0 text-dark-60 text-base font-normal overflow-hidden;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
