@@ -23,7 +23,7 @@ export default function Home() {
 						href="sign-up"
 						className="block px-3 py-2 border border-indigo-500 rounded bg-indigo-500 text-white font-semibold text-center md:mr-2 mb-3 md:mb-0"
 					>
-						Get Onboard 🚀
+						Get Started 🚀
 					</Link>
 
 					<Link

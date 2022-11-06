@@ -91,7 +91,7 @@ export interface editUserDataResInterface
 	extends ModifyPropertiesTypes<editUserDataFormType, { photoURL: string }> {}
 
 export interface StoreUserPhotoGalleryFormInterface {
-	img: File;
+	img: string;
 	title: string;
 	description?: string;
 }
@@ -588,7 +588,7 @@ class FirebaseHelper {
 				Timestamp.now().nanoseconds.toString() + _CURRENT_USER.uid ?? "";
 
 			const NEW_INCOME_SOURCE_ICON = await this.uploadPhotoAsync(
-				URL.createObjectURL(form.img),
+				form.img,
 				"images/users_photo_gallery/" + IMG_NAME
 			);
 
