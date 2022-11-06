@@ -37,6 +37,7 @@ import {
 	getDownloadURL,
 	uploadBytesResumable,
 	UploadMetadata,
+	deleteObject,
 } from "firebase/storage";
 import { validate } from "validate.js";
 
@@ -584,8 +585,9 @@ class FirebaseHelper {
 		try {
 			const _CURRENT_USER = this.auth.currentUser as User;
 			const _USER_DOC_REF = doc(this.db, "users", _CURRENT_USER.uid);
+			const _TIMESTAMP = Timestamp.now();
 			const IMG_NAME =
-				Timestamp.now().nanoseconds.toString() + _CURRENT_USER.uid ?? "";
+				_TIMESTAMP.nanoseconds.toString() + _CURRENT_USER.uid ?? "";
 
 			const NEW_INCOME_SOURCE_ICON = await this.uploadPhotoAsync(
 				form.img,
@@ -598,8 +600,8 @@ class FirebaseHelper {
 				description: form.description ?? null,
 				img: NEW_INCOME_SOURCE_ICON,
 				id: null,
-				createdAt: Timestamp.now(),
-				updatedAt: Timestamp.now(),
+				createdAt: _TIMESTAMP,
+				updatedAt: _TIMESTAMP,
 			};
 
 			const _DOC_REF = await addDoc(
@@ -620,6 +622,39 @@ class FirebaseHelper {
 			console.warn("🚧 FirebaseHelper->addUserIncomeSourceIcon->catch", err);
 		}
 		return null;
+	}
+
+	async deleteUserPhotoGallery(
+		photoObject: NewStoredUserPhotoGalleryInterface
+	): Promise<true | false> {
+		try {
+			const _CURRENT_USER = this.auth.currentUser as User;
+			const PHOTO_FILE_REF = ref(
+				this.storage,
+				`images/users_photo_gallery/${photoObject.createdAt.nanoseconds + _CURRENT_USER.uid}`
+			);
+			const _PHOTO_DOC_REF = doc(
+				this.db,
+				"users_photo_gallery",
+				photoObject?.id ?? ""
+			);
+
+			const DELETE_PHOTO_FILE_REF = await deleteObject(PHOTO_FILE_REF);
+			if (typeof DELETE_PHOTO_FILE_REF != "undefined") {
+				return false;
+			}
+
+			await deleteDoc(_PHOTO_DOC_REF);
+			console.log({
+				type: "success",
+				message: "Income source deleted!",
+				icon: "success",
+			});
+			return true;
+		} catch (err) {
+			console.warn("🚧 FirebaseHelper->deleteIncomeSource->catch", err);
+		}
+		return false;
 	}
 
 	async getStoredUserPhotoGallery(

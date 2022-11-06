@@ -11,6 +11,7 @@ import { isEmpty } from "helpers/utils";
 
 // COMPONENTS
 import AddPictureModal from "@/components/AddPictureModal";
+import DeletePhotoConfirmationModal from "@/components/DeletePhotoConfirmationModal";
 
 // LOCAL TYPES
 export interface Props {}
@@ -25,13 +26,35 @@ const Profile: NextPage<Props> = ({}) => {
 		NewUserDataInterface | undefined
 	>(undefined);
 	const [loadingUserData, setLoadingUserData] = React.useState(true);
+	const [loadingPhotoDeletion, setLoadingPhotoDeletion] = React.useState(false);
 	const [owner, setOwner] = React.useState(false);
 	const [showAddPhotoGalleryModal, setShowAddPhotoGalleryModal] =
 		React.useState(false);
 	const [userImgList, setUserImgList] = React.useState<
 		NewStoredUserPhotoGalleryInterface[]
 	>([]);
+	const [deletePhoto, setDeletePhoto] = React.useState<
+		NewStoredUserPhotoGalleryInterface | undefined
+	>(undefined);
 
+	// FUNCTIONS
+	const handlePhotoDeletion = async () => {
+		setLoadingPhotoDeletion(true);
+		if (deletePhoto) {
+			const PHOTO_DELETION_RES = await firebase.deleteUserPhotoGallery(
+				deletePhoto
+			);
+
+			if (PHOTO_DELETION_RES) {
+				setUserImgList(
+					userImgList.filter((item) => item.id !== deletePhoto.id)
+				);
+				setDeletePhoto(undefined);
+			}
+		}
+
+		setLoadingPhotoDeletion(false);
+	};
 	// EFFECTS
 	React.useEffect(() => {
 		(async () => {
@@ -81,6 +104,14 @@ const Profile: NextPage<Props> = ({}) => {
 					])
 				}
 			/>
+
+			<DeletePhotoConfirmationModal
+				visible={!!deletePhoto}
+				onConfirm={handlePhotoDeletion}
+				onDismiss={() => setDeletePhoto(undefined)}
+				confirmationLoading={loadingPhotoDeletion}
+			/>
+
 			<div className="w-screen h-screen overflow-hidden flex flex-col md:flex-row">
 				<div className="w-full md:w-96 bg-slate-200 shadow-2xl flex flex-col py-5 md:py-16 px-5">
 					{loadingUserData ? (
@@ -171,10 +202,13 @@ const Profile: NextPage<Props> = ({}) => {
 
 											{owner && (
 												<div className="absolute top-3 right-3  flex-col items-end hidden group-hover:flex z-10">
-													<button className=" bg-indigo-500 text-white text-small py-1 px-2 mb-1 rounded">
+													{/* <button className=" bg-indigo-500 text-white text-small py-1 px-2 mb-1 rounded">
 														Edit
-													</button>
-													<button className=" bg-danger text-white text-small py-1 px-2 rounded">
+													</button> */}
+													<button
+														className=" bg-danger text-white text-small py-1 px-2 rounded"
+														onClick={() => setDeletePhoto(item)}
+													>
 														Delete
 													</button>
 												</div>
