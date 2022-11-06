@@ -589,7 +589,7 @@ class FirebaseHelper {
 			const IMG_NAME =
 				_TIMESTAMP.nanoseconds.toString() + _CURRENT_USER.uid ?? "";
 
-			const NEW_INCOME_SOURCE_ICON = await this.uploadPhotoAsync(
+			const NEW_USER_PHOTO_GALLERY_PATH = await this.uploadPhotoAsync(
 				form.img,
 				"images/users_photo_gallery/" + IMG_NAME
 			);
@@ -598,7 +598,7 @@ class FirebaseHelper {
 				user: _USER_DOC_REF,
 				title: form.title,
 				description: form.description ?? null,
-				img: NEW_INCOME_SOURCE_ICON,
+				img: NEW_USER_PHOTO_GALLERY_PATH,
 				id: null,
 				createdAt: _TIMESTAMP,
 				updatedAt: _TIMESTAMP,
@@ -612,14 +612,14 @@ class FirebaseHelper {
 			console.log({
 				type: "success",
 				icon: "success",
-				message: "Income source icon added!",
+				message: "User photo added!",
 			});
 
 			_DATA_TO_RETURN.id = _DOC_REF.id;
 
 			return { ..._DATA_TO_RETURN, user: _CURRENT_USER.uid };
 		} catch (err) {
-			console.warn("🚧 FirebaseHelper->addUserIncomeSourceIcon->catch", err);
+			console.warn("🚧 FirebaseHelper->storeUserPhotoGallery->catch", err);
 		}
 		return null;
 	}
@@ -647,12 +647,12 @@ class FirebaseHelper {
 			await deleteDoc(_PHOTO_DOC_REF);
 			console.log({
 				type: "success",
-				message: "Income source deleted!",
+				message: "user photo deleted!",
 				icon: "success",
 			});
 			return true;
 		} catch (err) {
-			console.warn("🚧 FirebaseHelper->deleteIncomeSource->catch", err);
+			console.warn("🚧 FirebaseHelper->deleteUserPhotoGallery->catch", err);
 		}
 		return false;
 	}
